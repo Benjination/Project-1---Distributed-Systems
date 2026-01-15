@@ -1,8 +1,8 @@
 # Docker Commands Reference & Categorization
 
 ## Project Information
-- **Student Name**: [Your Name]
-- **Student ID**: [Your ID]  
+- **Student Name**: Benjamin Niccum
+- **Student ID**: 1002111609
 - **Project**: Distributed Systems Project 1
 
 ## Instructions Requirement
@@ -15,8 +15,9 @@
 ### Building Images
 | Command | Purpose | Example Used |
 |---------|---------|--------------|
-| `docker build` | Build an image from a Dockerfile | `docker build --tag getting-started .` |
-| `docker tag` | Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE | `docker tag getting-started YOUR_USER_NAME/getting-started` |
+| `docker build` | Build an image from a Dockerfile | `docker build -t bennythepooh/project.1 .` |
+| `docker build .` | Build image without tag (creates dangling image) | `docker build .` |
+| `docker tag` | Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE | `docker tag my-new-app BennyThePooh/my-new-app` |
 
 ### Image Information  
 | Command | Purpose | Example Used |
@@ -28,8 +29,9 @@
 ### Registry Operations
 | Command | Purpose | Example Used |
 |---------|---------|--------------|
-| `docker pull` | Download an image from a registry to local system | `docker pull ubuntu:18.04` |
-| `docker push` | Upload an image to a registry | `docker push YOUR_USER_NAME/getting-started` |
+| `docker pull` | Download an image from a registry to local system | `docker pull ubuntu:latest` |
+| `docker push` | Upload an image to a registry | `docker push bennythepooh/project.1` |
+| `docker login` | Authenticate with Docker Hub | `docker login` |
 
 ---
 
@@ -38,7 +40,10 @@
 ### Running Containers
 | Command | Purpose | Example Used |
 |---------|---------|--------------|
-| `docker run` | Create and start a new container from an image | `docker run -dp 127.0.0.1:3000:3000 getting-started` |
+| `docker run` | Create and start a new container from an image | `docker run -p 3000:3000 bennythepooh/project.1:latest` |
+| `docker run -d` | Run container in detached mode (background) | `docker run -d -p 8080:80 docker/welcome-to-docker` |
+| `docker run -it` | Run container interactively with terminal | `docker run -it ubuntu /bin/bash` |
+| `docker run --name` | Run container with specific name | `docker run --name=app-container -ti node-base` |
 | `docker start` | Start one or more stopped containers | `docker start container_name` |
 | `docker stop` | Stop one or more running containers | `docker stop container_name` |
 | `docker restart` | Restart one or more containers | `docker restart container_name` |

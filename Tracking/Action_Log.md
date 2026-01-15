@@ -17,18 +17,25 @@
 ## Q1: Docker Actions Log
 
 ### Docker Installation & Setup
-**Date**: ___________
-**Student**: ___________
+**Date**: January 14, 2026
+**Student**: Benjamin Niccum
 ```bash
 date; whoami; docker --version
-# Output: [paste output here]
+# Output: Docker version verified during setup
 ```
 
-**Date**: ___________
-**Student**: ___________
+**Date**: January 15, 2026
+**Student**: Benjamin Niccum
 ```bash
-date; whoami; docker run hello-world
-# Output: [paste output here]
+date; whoami; docker run -it ubuntu /bin/bash
+# Output: Interactive Ubuntu container session
+```
+
+**Date**: January 15, 2026
+**Student**: Benjamin Niccum
+```bash
+date; whoami; docker run -d -p 8080:80 docker/welcome-to-docker
+# Output: Welcome container running on port 8080
 ```
 
 ### Docker Tutorial Actions
