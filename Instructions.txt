@@ -1,0 +1,143 @@
+1. Introduction
+The purpose of this project assignment is to provide you with a solid understanding of Docker and gRPC. You will learn the key concepts, features, and practical skills needed to leverage Docker and gRPC for building distributed systems.
+
+You should read Section 2 (Docker), Section 3 (gRPC), before you start the implementation of the assignment detailed in Section 4 (Assignment).
+
+You can use any programming language to implement this project. 
+
+The estimated workload for this project is about 2 weeks. Please start working on it as soon as possible.
+
+2. Docker
+2.1 Overview
+Docker provides the ability to package and run an application in a loosely isolated environment called a container. The isolation and security lets you run many containers simultaneously on a given host.
+
+Containers are lightweight and contain everything needed to run the application, so you don't need to rely on what's installed on the host.
+
+In addition, Docker's container-based platform allows for highly portable workloads. Docker containers can run on a developer's local laptop, on physical or virtual machines in a data center, on cloud providers, or in a mixture of environments. 
+
+Docker's portability and lightweight nature also make it easy to dynamically manage workloads, scaling up or tearing down applications and services as business needs dictate, in near real time.
+
+2.2 Docker Objects
+When you use Docker, you are creating and using images, containers, networks, volumes, plugins, and other objects. This section is a brief overview of some of those objects.
+
+2.2.1 ImagesLinks to an external site.
+An image is a read-only template with instructions for creating a Docker container. Often, an image is based on another image, with some additional customization. For example, you may build an image which is based on the ubuntu image, but installs the Apache web server and your application, as well as the configuration details needed to make your application run.
+
+To build your own image, you create a Dockerfile with a simple syntax for defining the steps needed to create the image and run it. Each instruction in a Dockerfile creates a layer in the image. When you change the Dockerfile and rebuild the image, only those layers which have changed are rebuilt. This is part of what makes images so lightweight, small, and fast, when compared to other virtualization technologies.
+
+2.2.2 ContainersLinks to an external site.
+A container is a runnable instance of an image. You can create, start, stop, move, or delete a container using the Docker API or CLI (Command-Line Interface). You can connect a container to one or more networks, attach storage to it, or even create a new image based on its current state.
+
+A container is defined by its image as well as any configuration options you provide to it when you create or start it. When a container is removed, any changes to its state that aren't stored in persistent storage disappear.
+
+3. gRPC
+3.1 Overview [1]
+In gRPC, a client application can directly call a method on a server application on a different machine as if it were a local object. As in many RPC systems, gRPC is based around the idea of specifying the data structure and the methods that can be called remotely with their parameters and return types.
+
+3.2 Defining Data Structure
+
+By default, gRPC uses Protocol Buffer (Protobuf)Links to an external site. Google’s mature open source mechanism for serializing structured data. 
+
+The first step when working with protocol buffers is to define the structure for the data you want to serialize in a proto file: this is an ordinary text file with a .proto extension. Protocol buffer data is structured as messages, where each message is a small logical record of information containing a series of name-value pairs called fields. For example,
+
+message Person {
+  string name = 1;
+  int32 id = 2;
+  bool has_ponycopter = 3;
+}
+3.3 Defining Service Methods
+gRPC lets you define four kinds of service method.
+
+(a) Unary RPCs: The client sends a single request to the server and gets a single response back, just like a normal function call.
+
+rpc SayHello(HelloRequest) returns (HelloResponse);
+(b) Server streaming RPCs: The client sends a request to the server and gets a stream to read a sequence of messages back. The client reads from the returned stream until there are no more messages. gRPC guarantees message ordering within an individual RPC call.
+
+rpc LotsOfGreetings(stream HelloRequest) returns (HelloResponse); 
+(c) Client streaming RPCs: The client writes a sequence of messages and sends them to the server, again using a provided stream. Once the client has finished writing the messages, it waits for the server to read them and return its response. Again gRPC guarantees message ordering within an individual RPC call.
+
+rpc LotsOfReplies(HelloRequest) returns (stream HelloResponse); 
+(d) Bidirectional streaming RPCs: Both sides send a sequence of messages using a read-write stream. The two streams operate independently, so clients and servers can read and write in whatever order they like: for example, the server could wait to receive all the client messages before writing its responses, or it could alternately read a message then write a message, or some other combination of reads and writes. The order of messages in each stream is preserved.
+
+rpc BidiHello(stream HelloRequest) returns (stream HelloResponse);
+Once you’ve specified your data structure and methods, you can then use the protocol buffer compiler protoc to generate (1) data access classes in your preferred language(s) from your proto definition; and (2) client- and server-side code.
+
+For the data access classes generated by protoc, simple accessors are provided for each field, like name() and set_name(), as well as methods to serialize/parse the whole structure to/from raw bytes. For instance, if your chosen language is C++, running the compiler on the example above will generate a class called Person. You can then use this class in your application to populate, serialize, and retrieve Person protocol buffer messages.
+
+As for the client- and server-side code, you typically call those generated APIs on the client side and implement the corresponding APIs on the server side. Specifically,
+
+on the server side, the server implements the methods declared by the service and runs a gRPC server to handle client calls;
+on the client side, the client has a local object known as stub (for some languages, the preferred term is client) that implements the same methods as the service. The client can then just call those methods on the local object.
+To learn gRPC lifecycle of different types of methods, see https://grpc.io/docs/what-is-grpc/core-concepts/#rpc-life-cycleLinks to an external site. .
+
+To learn more about protocol buffers, including how to install protoc with the gRPC plugin in your chosen language, see the protocol buffers documentationLinks to an external site..
+
+4. Assignment
+Q1. [Workload: ~0.5 week]
+Follow the get started guide (https://docs.docker.com/get-started/Links to an external site.) to install Docker and learn the foundational concepts and workflows of Docker.
+
+You should complete (1) "What is Docker?Links to an external site.", (2) "Get DockerLinks to an external site.", (3) "IntroductionLinks to an external site.", (4) "Docker conceptsLinks to an external site.", and (5) "Docker workshopLinks to an external site.". Note that all the parts/tasks need to be complete.
+
+In addition, there is an additional task that you need to complete after "Part 7: Use Docker Compose" of "Docker workshop": you should share the created image in Part 7 on Docker Hub.
+
+In your final report, you should
+
+include the link to your shared image on Docker Hub, as stated in Part 3 of "Docker workshop" or Module 3 of "Introduction". 
+include the link to the other shared image on Docker Hub related to Part 7 of "Docker workshop".
+categorize all the Docker commands that you have tried in the get started guide and briefly explain the purpose of each one of them. For example, docker pull <image_name> : Download a Docker image from a registry to the local system. 
+No screenshots are needed for this question.
+
+Q2. [Workload: ~0.5 week]
+Select one programming languages and follow their language-specific guides (https://grpc.io/docs/languages/Links to an external site.) to get yourself quickly started with gRPC. Below are the links to three example languages provided.
+
+Python: https://grpc.io/docs/languages/python/
+Java: https://grpc.io/docs/languages/java/ Links to an external site.Links to an external site.
+Golang: https://grpc.io/docs/languages/go/quickstart/Links to an external site.
+You should complete all the tasks outlined in Quick Start and Basics Tutorial.
+
+You should capture screenshots for only the last step of Basics Tutorial (commands and corresponding output) and include them in the report. 
+
+Please specify the time and the student performing the action for every step. For example,
+
+On Mac and Linux, you should preface each command with the “date; whoami;” command. For example, when building the docker image, you should run the command:
+
+$ date; whoami; docker build --tag python-docker .
+
+On windows, you should preface each command with the “echo %date% %time%; whoami;”.
+
+Q3. [Workload: ~1 week]
+Implement two basic server-client pairs using the same proto file but with different languages. You can define your own functionality to implement for your server and client. There are no specific requirements on the functionality.
+
+You should also containerize the two servers and the two clients, separately. In total, there should be four different images. An instance of either server image should be able to communicate with an instance of either client image.  
+
+You should use AI tools for this question. You should include in the report brief descriptions of (1) the prompts you provide, (2) the answers provided by the AI tools, (3) how you use these answers to complete this question, (4) bullet points summarizing both the positive and negative aspects of your experience with the AI tools you used for this question.
+
+You should shoot two short videos (5~10 seconds each) of
+
+Video 1: Running one client (implemented with language A) communicating with one server (implemented with language B, which is different from language A)
+Video 2: Running one client (language B) communicating with one server (language A).
+Please specify the time and the student performing the action for every step. For example,
+
+On Mac and Linux, you should preface each command with the “date; whoami;” command. For example, when building the docker image, you should run the command:
+
+$ date; whoami; docker build --tag python-docker .
+
+On windows, you should preface each command with the “echo %date% %time%; whoami;”.
+
+5. Turning in Your Solution
+You should make sure that your deliverables include source code of your implementation, a README file, two short videos, and the final report. You should NOT put all the required files into a zipped folder. Instead, you should upload each one of them to Canvas.
+
+In the README file (5 pts), you should include explains:
+
+How to compile and run your program;
+Anything unusual about your solution that the TA should know;
+Any external sources referenced while working on your solution.
+In the report, you should make sure you clearly list your names and student IDs. You should clearly mention which student worked on which part of the project. 
+
+NOTE: The late penalty is 20 points per day.
+
+ 
+
+References:
+[1] https://grpc.io/docs/what-is-grpc/introduction/Links to an external site. 
+
