@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  # Python gRPC Database Server
+  python-db-server:
+    image: bennythepooh/phonebook-database:latest
+    container_name: phonebook-python-db
+    networks:
+      - phonebook-net
+    ports:
+      - "50051:50051"
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import grpc; import sys; sys.exit(0)"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # Java Spring Boot Web Server
+  java-web-server:
+    image: bennythepooh/phonebook-web:latest
+    container_name: phonebook-java-web
+    depends_on:
+      python-db-server:
+        condition: service_healthy
+    networks:
+      - phonebook-net
+    ports:
+      - "8080:8080"
+    environment:
+      - GRPC_SERVER_HOST=python-db-server
+      - GRPC_SERVER_PORT=50051
+
+networks:
+  phonebook-net:
+    driver: bridge

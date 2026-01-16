@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.distributed.phonebook";
+option java_outer_classname = "PhonebookProto";
+
+package phonebook;
+
+// The Phonebook service definition
+service PhonebookService {
+  // Add a new contact to the phonebook
+  rpc AddContact(ContactRequest) returns (ContactResponse);
+  
+  // Get a contact by phone number
+  rpc GetContact(ContactRequest) returns (ContactResponse);
+  
+  // Update an existing contact
+  rpc UpdateContact(ContactRequest) returns (ContactResponse);
+  
+  // Delete a contact by phone number
+  rpc DeleteContact(ContactRequest) returns (ContactResponse);
+  
+  // List all contacts in the phonebook
+  rpc ListContacts(Empty) returns (ContactList);
+}
+
+// Contact message representing a phonebook entry
+message Contact {
+    int32 id = 1;           // Unique identifier
+    string name = 2;
+    string phone_number = 3;
+    string email = 4;
+    string address = 5;
+}// Request message for getting/deleting a contact
+message ContactRequest {
+    int32 id = 1;           // For get/update/delete operations
+    string phone_number = 2; // For search by phone (optional)
+    Contact contact = 3;     // For add/update operations
+}
+
+// Response message for operations
+message ContactResponse {
+  bool success = 1;
+  string message = 2;
+  Contact contact = 3;  // Optional, returned for successful operations
+}
+
+// List of contacts
+message ContactList {
+  repeated Contact contacts = 1;
+  int32 count = 2;
+}
+
+// Empty message for operations that don't need parameters
+message Empty {
+}

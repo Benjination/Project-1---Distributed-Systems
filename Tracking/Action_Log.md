@@ -14,6 +14,70 @@
 
 ---
 
+## Q2: gRPC Actions Log
+
+### Java Environment Setup
+**Date**: January 15, 2026
+**Student**: Benjamin Niccum
+```bash
+date; whoami; java --version
+# Error: Unable to locate Java Runtime
+
+date; whoami; brew install openjdk
+# OpenJDK 25 installed successfully
+
+date; whoami; brew install openjdk@17  
+# Java 17 LTS installed for gRPC compatibility
+
+date; whoami; export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"; java --version
+# openjdk 17.0.17 2025-10-21
+
+date; whoami; brew install maven
+# Maven 3.9.12 installed
+```
+
+### gRPC Java Examples Setup
+**Date**: January 15, 2026
+**Student**: Benjamin Niccum
+```bash
+date; whoami; cd "/Users/necro/Desktop/Spring '26/Distributed Systems/Project 1" && mkdir gRPC_Java && cd gRPC_Java
+
+date; whoami; git clone -b v1.69.0 --depth 1 --recursive https://github.com/grpc/grpc-java
+# Successfully cloned gRPC Java repository
+
+date; whoami; cd grpc-java/examples && ./gradlew installDist
+# Build successful with Java 17
+```
+
+### gRPC Quick Start Tutorial Completion
+**Date**: January 15, 2026
+**Student**: Benjamin Niccum
+```bash
+date; whoami; ./build/install/examples/bin/hello-world-server
+# Server started, listening on 50051
+
+date; whoami; ./build/install/examples/bin/hello-world-client  
+# Client: "Will try to greet world..."
+# Successfully demonstrated gRPC communication
+```
+
+### gRPC Basics Tutorial - Route Guide Example
+**Date**: January 16, 2026
+**Student**: Benjamin Niccum
+```bash
+date; whoami; cd "/Users/necro/Desktop/Spring '26/Distributed Systems/Project 1/gRPC_Java/grpc-java/examples" && export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH" && ./build/install/examples/bin/route-guide-server &
+# Route guide server started on port 8980
+
+date; whoami; cd "/Users/necro/Desktop/Spring '26/Distributed Systems/Project 1/gRPC_Java/grpc-java/examples" && export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH" && ./build/install/examples/bin/route-guide-client
+# Output: Successfully demonstrated all four gRPC RPC types:
+# - GetFeature (unary): Found feature called "Patriots Path, Mendham, NJ 07945, USA"
+# - ListFeatures (server streaming): Looking for features between 40, -75 and 42, -73
+# - RecordRoute (client streaming): Finished trip with 10 points. Passed 3 features
+# - RouteChat (bidirectional streaming): Got message First message at 0, 0
+```
+
+---
+
 ## Q1: Docker Actions Log
 
 ### Docker Installation & Setup
@@ -71,13 +135,13 @@ date; whoami; docker compose up -d
 # Output: [paste output here]
 ```
 
-**Date**: ___________
-**Student**: ___________
+**Date**: January 15, 2026
+**Student**: Benjamin Niccum
 **Action**: Part 7 - Share Docker Compose image (Docker Hub Link #2)
 ```bash
-date; whoami; docker tag [image-name] YOUR_USER_NAME/[image-name]
-date; whoami; docker push YOUR_USER_NAME/[image-name]
-# Docker Hub Link #2: [paste link here]
+date; whoami; docker tag getting-started bennythepooh/getting-started
+date; whoami; docker push bennythepooh/getting-started
+# Docker Hub Link #2: https://hub.docker.com/repository/docker/bennythepooh/getting-started/general
 ```
 
 ---
@@ -152,6 +216,64 @@ date; whoami; python greeter_server.py
 date; whoami; python greeter_client.py
 # Output: [paste output here]
 # Screenshot: [attach screenshot]
+```
+
+### Python Environment Setup & gRPC Completion
+**Date**: January 16, 2026
+**Student**: Benjamin Niccum
+```bash
+date; whoami; python3 --version
+# Python 3.13.7
+
+date; whoami; cd "/Users/necro/Desktop/Spring '26/Distributed Systems/Project 1" && mkdir gRPC_Python && cd gRPC_Python
+# Created Python gRPC directory
+
+date; whoami; python3 -m venv grpc_env
+# Virtual environment created successfully
+
+date; whoami; source grpc_env/bin/activate && pip install grpcio grpcio-tools protobuf
+# grpcio-1.76.0, grpcio-tools-1.76.0, protobuf-6.33.4 installed
+
+date; whoami; git clone -b v1.69.0 --depth 1 https://github.com/grpc/grpc-python.git
+# Successfully cloned gRPC Python repository
+```
+
+### Python Quick Start Tutorial
+**Date**: January 16, 2026
+**Student**: Benjamin Niccum
+```bash
+date; whoami; cd grpc-python/examples/python/helloworld && source "/Users/necro/Desktop/Spring '26/Distributed Systems/Project 1/gRPC_Python/grpc_env/bin/activate"
+# Activated virtual environment in hello world directory
+
+date; whoami; python3 greeter_server.py &
+# Server started on port 50051
+
+date; whoami; python3 greeter_client.py
+# Output: Will try to greet world ...
+#         Greeter client received: Hello, you!
+# Screenshot: Python1.png
+```
+
+### Python Basics Tutorial - Route Guide
+**Date**: January 16, 2026
+**Student**: Benjamin Niccum
+```bash
+date; whoami; cd ../route_guide && python3 route_guide_server.py &
+# Route Guide server started on port 50051
+
+date; whoami; sleep 2 && date && whoami && python3 route_guide_client.py 2>&1
+# Fri Jan 16 14:55:17 CST 2026
+# necro
+# -------------- GetFeature --------------
+# Feature called 'Berkshire Valley Management Area Trail, Jefferson, NJ, USA' at latitude: 409146138, longitude: -746188906
+# Found no feature at latitude: 0, longitude: 0
+# -------------- ListFeatures --------------
+# [Extensive feature listings...]
+# -------------- RecordRoute --------------
+# Finished trip with 10 points, Passed 10 features, Travelled 687590 meters, It took 0 seconds
+# -------------- RouteChat --------------
+# [Bidirectional streaming messages...]
+# Screenshots: Python2.png, Python3.png
 ```
 
 ---

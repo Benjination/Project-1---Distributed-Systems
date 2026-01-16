@@ -1,0 +1,65 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.google.protobuf' version '0.9.4'
+    id 'org.springframework.boot' version '3.2.1'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.distributed'
+version = '1.0.0'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring Boot dependencies
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    
+    // gRPC dependencies
+    implementation 'io.grpc:grpc-netty-shaded:1.59.0'
+    implementation 'io.grpc:grpc-protobuf:1.59.0'
+    implementation 'io.grpc:grpc-stub:1.59.0'
+    compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
+    
+    // Protocol Buffers
+    implementation 'com.google.protobuf:protobuf-java:3.25.1'
+    
+    // Testing
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.25.1"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.59.0'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDir '../proto'
+        }
+    }
+}
+
+application {
+    mainClass = 'com.distributed.phonebook.PhonebookWebApplication'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

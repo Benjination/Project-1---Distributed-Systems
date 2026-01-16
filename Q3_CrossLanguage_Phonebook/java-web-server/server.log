@@ -1,0 +1,42 @@
+> Task :extractIncludeProto UP-TO-DATE
+> Task :extractProto UP-TO-DATE
+> Task :generateProto UP-TO-DATE
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :resolveMainClassName UP-TO-DATE
+
+> Task :bootRun
+🌐 Starting Phonebook Web Server...
+📱 Connecting to Python gRPC Database Server at localhost:50051
+🔗 Web interface will be available at http://localhost:8080
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.1)
+
+2026-01-16T16:44:06.918-06:00  INFO 48712 --- [           main] c.d.phonebook.PhonebookWebApplication    : Starting PhonebookWebApplication using Java 17.0.17 with PID 48712 (/Users/necro/Desktop/Spring '26/Distributed Systems/Project 1/Q3_CrossLanguage_Phonebook/java-web-server/build/classes/java/main started by necro in /Users/necro/Desktop/Spring '26/Distributed Systems/Project 1/Q3_CrossLanguage_Phonebook/java-web-server)
+2026-01-16T16:44:06.919-06:00  INFO 48712 --- [           main] c.d.phonebook.PhonebookWebApplication    : No active profile set, falling back to 1 default profile: "default"
+2026-01-16T16:44:07.254-06:00  INFO 48712 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-01-16T16:44:07.264-06:00  INFO 48712 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-16T16:44:07.264-06:00  INFO 48712 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-01-16T16:44:07.287-06:00  INFO 48712 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-01-16T16:44:07.287-06:00  INFO 48712 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 351 ms
+2026-01-16T16:44:07.325-06:00  INFO 48712 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2026-01-16T16:44:07.441-06:00  INFO 48712 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-01-16T16:44:07.445-06:00  INFO 48712 --- [           main] c.d.phonebook.PhonebookWebApplication    : Started PhonebookWebApplication in 0.651 seconds (process running for 0.779)
+✅ Phonebook Web Server started successfully!
+🎯 Ready for cross-language gRPC communication demonstration
+2026-01-16T16:44:23.795-06:00  INFO 48712 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-16T16:44:23.795-06:00  INFO 48712 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-01-16T16:44:23.796-06:00  INFO 48712 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+❌ gRPC connection not available
+🌐 Web request: Home page loaded with 0 contacts
+🌐 Web request: Add contact form displayed
+🌐 Web request: Add contact form displayed
+❌ gRPC connection not available
+🌐 Web error: Failed to add contact - gRPC server connection not available

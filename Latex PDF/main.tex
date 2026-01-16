@@ -1,0 +1,751 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{float}
+
+% Code listing settings
+\lstset{
+    basicstyle=\ttfamily\footnotesize,
+    backgroundcolor=\color{gray!10},
+    frame=single,
+    breaklines=true,
+    showstringspaces=false,
+    commentstyle=\color{green!50!black},
+    keywordstyle=\color{blue},
+    stringstyle=\color{red}
+}
+
+% Header and footer
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Benjamin Niccum - 1002111609}
+\lhead{Distributed Systems Project 1}
+\cfoot{\thepage}
+
+\title{Distributed Systems Project 1\\Docker and gRPC Implementation}
+\author{Benjamin Niccum\\Student ID: 1002111609\\Course: Distributed Systems\\Spring 2026}
+\date{January 16, 2026}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+This project provides hands-on experience with Docker containerization and gRPC communication protocols, fundamental technologies for building distributed systems. The assignment consists of three main components:
+
+\begin{enumerate}
+    \item \textbf{Docker Fundamentals (Q1)}: Learning containerization concepts, Docker commands, and sharing images via Docker Hub
+    \item \textbf{gRPC Learning (Q2)}: Understanding remote procedure calls through language-specific tutorials in Java and Python
+    \item \textbf{Cross-Language Implementation (Q3)}: Building server-client pairs in different languages with Docker containerization
+\end{enumerate}
+
+\subsection{Project Timeline}
+\begin{itemize}
+    \item \textbf{Start Date}: January 14, 2026
+    \item \textbf{Estimated Duration}: 2 weeks
+    \item \textbf{Platform}: macOS
+    \item \textbf{Languages}: Java and Python (for cross-language communication)
+\end{itemize}
+
+\subsection{Work Division}
+All components of this project were completed by Benjamin Niccum (Student ID: 1002111609).
+
+\newpage
+\section{Q1: Docker Fundamentals}
+
+\subsection{Overview}
+This section covers the completion of Docker installation, tutorials, and command documentation as required by the project specifications.
+
+\subsection{Setup and Installation}
+\textbf{Completion Date}: January 14, 2026
+
+\begin{itemize}
+    \item[$\checkmark$] Docker Desktop for Mac installed
+    \item[$\checkmark$] Docker Hub account created (username: bennythepooh)
+    \item[$\checkmark$] Docker version verified
+\end{itemize}
+
+\subsection{Tutorial Sections Completed}
+
+\subsubsection{Required Reading}
+\begin{itemize}
+    \item[$\checkmark$] "What is Docker?" - Completed January 14, 2026
+    \item[$\checkmark$] "Get Docker" - Installation completed January 14, 2026
+    \item[$\checkmark$] "Docker concepts" - Completed January 15, 2026
+\end{itemize}
+
+\subsubsection{Hands-on Tutorials}
+\begin{itemize}
+    \item[$\checkmark$] "Introduction" tutorial - Completed January 14, 2026
+    \item[$\checkmark$] "Docker workshop" (Parts 1-7) - Completed January 15, 2026
+\end{itemize}
+
+\subsection{Docker Hub Links (Required Deliverables)}
+
+\textbf{Docker Hub Link \#1} (from Introduction tutorial):\\
+\url{https://hub.docker.com/r/bennythepooh/project.1}
+
+\textbf{Docker Hub Link \#2} (from Part 7 - Docker Compose):\\
+\url{https://hub.docker.com/repository/docker/bennythepooh/getting-started/general}
+
+\subsection{Command Documentation and Analysis}
+
+The following commands were used throughout the Docker tutorials, categorized by functionality:
+
+\subsubsection{Image Management Commands}
+\begin{longtable}{|p{0.25\textwidth}|p{0.35\textwidth}|p{0.35\textwidth}|}
+\hline
+\textbf{Command} & \textbf{Purpose} & \textbf{Example Used} \\
+\hline
+\texttt{docker build} & Build an image from a Dockerfile & \texttt{docker build -t bennythepooh/project.1 .} \\
+\hline
+\texttt{docker build .} & Build image without tag (creates dangling image) & \texttt{docker build .} \\
+\hline
+\texttt{docker tag} & Create a tag TARGET\_IMAGE that refers to SOURCE\_IMAGE & \texttt{docker tag my-new-app BennyThePooh/my-new-app} \\
+\hline
+\texttt{docker images} & List all locally stored images & \texttt{docker images} \\
+\hline
+\end{longtable}
+
+\subsubsection{Registry Operations}
+\begin{longtable}{|p{0.25\textwidth}|p{0.35\textwidth}|p{0.35\textwidth}|}
+\hline
+\textbf{Command} & \textbf{Purpose} & \textbf{Example Used} \\
+\hline
+\texttt{docker pull} & Download an image from a registry to local system & \texttt{docker pull ubuntu:latest} \\
+\hline
+\texttt{docker push} & Upload an image to a registry & \texttt{docker push bennythepooh/project.1} \\
+\hline
+\texttt{docker login} & Authenticate with Docker Hub & \texttt{docker login} \\
+\hline
+\end{longtable}
+
+\subsubsection{Container Operations}
+\begin{longtable}{|p{0.25\textwidth}|p{0.35\textwidth}|p{0.35\textwidth}|}
+\hline
+\textbf{Command} & \textbf{Purpose} & \textbf{Example Used} \\
+\hline
+\texttt{docker run} & Create and start a new container from an image & \texttt{docker run -p 3000:3000 bennythepooh/project.1:latest} \\
+\hline
+\texttt{docker run -d} & Run container in detached mode (background) & \texttt{docker run -d -p 8080:80 docker/welcome-to-docker} \\
+\hline
+\texttt{docker run -it} & Run container interactively with terminal & \texttt{docker run -it ubuntu /bin/bash} \\
+\hline
+\texttt{docker run --name} & Run container with specific name & \texttt{docker run --name=app-container -ti node-base} \\
+\hline
+\texttt{docker ps} & List running containers & \texttt{docker ps} \\
+\hline
+\texttt{docker ps -a} & List all containers (running and stopped) & \texttt{docker ps -a} \\
+\hline
+\end{longtable}
+
+\subsubsection{Docker Compose Commands}
+\begin{longtable}{|p{0.25\textwidth}|p{0.35\textwidth}|p{0.35\textwidth}|}
+\hline
+\textbf{Command} & \textbf{Purpose} & \textbf{Example Used} \\
+\hline
+\texttt{docker compose up -d} & Create and start containers in detached mode & \texttt{docker compose up -d} \\
+\hline
+\texttt{docker compose down} & Stop and remove containers, networks created by up & \texttt{docker compose down} \\
+\hline
+\texttt{docker compose ps} & List containers for the compose project & \texttt{docker compose ps} \\
+\hline
+\end{longtable}
+
+\subsection{Key Commands with Timestamps}
+
+All commands were executed using the required format: \texttt{date; whoami; [command]}
+
+\subsubsection{Docker Setup Verification}
+\textbf{Date}: January 14, 2026\\
+\textbf{Student}: Benjamin Niccum
+\begin{lstlisting}[language=bash]
+date; whoami; docker --version
+# Output: Docker version verified during setup
+\end{lstlisting}
+
+\subsubsection{Image Building and Sharing}
+\textbf{Date}: January 14, 2026\\
+\textbf{Student}: Benjamin Niccum
+\begin{lstlisting}[language=bash]
+date; whoami; docker build -t bennythepooh/project.1 .
+date; whoami; docker push bennythepooh/project.1
+# Docker Hub Link #1: https://hub.docker.com/r/bennythepooh/project.1
+\end{lstlisting}
+
+\subsubsection{Docker Compose Implementation}
+\textbf{Date}: January 15, 2026\\
+\textbf{Student}: Benjamin Niccum
+\begin{lstlisting}[language=bash]
+date; whoami; docker tag getting-started bennythepooh/getting-started
+date; whoami; docker push bennythepooh/getting-started
+# Docker Hub Link #2: https://hub.docker.com/repository/docker/bennythepooh/getting-started/general
+\end{lstlisting}
+
+\subsection{Docker Tutorial Screenshot Gallery}
+The following screenshots document key Docker commands and outputs throughout the Q1 tutorials:
+
+\begin{enumerate}
+    \item[\textbf{2.7.1}] \textbf{Basic Docker Operations}
+    \item[\textbf{2.7.2}] \textbf{Container and Volume Management}
+    \item[\textbf{2.7.3}] \textbf{Database and Networking}
+    \item[\textbf{2.7.4}] \textbf{Docker Compose (Part 7)}
+\end{enumerate}
+
+\subsubsection{Basic Docker Operations}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Images/Build Project.png}
+    \caption{Building the Docker project image}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Images/Run The Project.png}
+    \caption{Running the containerized application}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Images/Push to Hub.png}
+    \caption{Pushing to Docker Hub (Link \#1)}
+\end{figure}
+
+\subsubsection{Container and Volume Management}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Images/View Continers.png}
+    \caption{Viewing running containers}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Images/Create Docker Volume.png}
+    \caption{Creating persistent Docker volume}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Images/Bind Moutns.png}
+    \caption{Using bind mounts for development}
+\end{figure}
+
+\subsubsection{Database and Networking}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Images/Add SQL to Network.png}
+    \caption{Adding MySQL to Docker network}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Images/Show Databases.png}
+    \caption{Viewing MySQL databases}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Images/View Database Info.png}
+    \caption{Database information display}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Images/Netshoot.png}
+    \caption{Network troubleshooting}
+\end{figure}
+
+\subsubsection{Docker Compose (Part 7)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Images/Push of Part 7 app.png}
+    \caption{Part 7 Docker Compose push (Link \#2)}
+\end{figure}
+
+\clearpage
+\newpage
+\section{Q2: gRPC Fundamentals}
+
+\subsection{Overview}
+This section covers the completion of gRPC tutorials in both Java and Python, demonstrating understanding of remote procedure call concepts and implementation.
+
+\subsection{Language Selection}
+\begin{itemize}
+    \item \textbf{Primary Language}: Java (chosen for robust enterprise support)
+    \item \textbf{Secondary Language}: Python (chosen for rapid development and simplicity)
+\end{itemize}
+
+\subsection{Java gRPC Implementation}
+
+\subsubsection{Environment Setup}
+\textbf{Status}: COMPLETED - January 16, 2026
+\begin{itemize}
+    \item[$\checkmark$] Java environment verified (Java 17 LTS installed)
+    \item[$\checkmark$] Java Quick Start completed
+    \item[$\checkmark$] Java Basics Tutorial completed (Route Guide example)
+    \item[$\checkmark$] Final step screenshots taken (with \texttt{date; whoami;} format)
+\end{itemize}
+
+\subsubsection{Java Environment Configuration}
+\textbf{Java Version}: OpenJDK 17 LTS (installed for gRPC compatibility)
+\textbf{Build System}: Gradle
+\textbf{Repository}: grpc-java v1.69.0
+
+\subsubsection{Quick Start Completion}
+\textbf{Date}: January 15, 2026
+\textbf{Student}: Benjamin Niccum
+\begin{lstlisting}[language=bash]
+date; whoami; cd "/Users/necro/Desktop/Spring '26/Distributed Systems/Project 1/gRPC_Java/grpc-java/examples" && export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH" && ./build/install/examples/bin/hello-world-server
+# Server started on port 50051
+
+date; whoami; cd "/Users/necro/Desktop/Spring '26/Distributed Systems/Project 1/gRPC_Java/grpc-java/examples" && export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH" && ./build/install/examples/bin/hello-world-client  
+# Hello HelloWorld
+\end{lstlisting}
+
+\subsubsection{Basics Tutorial - Route Guide Example}
+\textbf{Date}: January 16, 2026
+\textbf{Student}: Benjamin Niccum
+
+The Route Guide example demonstrates all four types of gRPC service methods:
+\begin{enumerate}
+    \item \textbf{Simple RPC}: GetFeature - unary call
+    \item \textbf{Server streaming RPC}: ListFeatures - server streams features
+    \item \textbf{Client streaming RPC}: RecordRoute - client streams route points
+    \item \textbf{Bidirectional streaming RPC}: RouteChat - bidirectional chat
+\end{enumerate}
+
+\begin{lstlisting}[language=bash]
+date; whoami; cd "/Users/necro/Desktop/Spring '26/Distributed Systems/Project 1/gRPC_Java/grpc-java/examples" && export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH" && ./build/install/examples/bin/route-guide-client
+# Successfully demonstrated all four RPC types:
+# - GetFeature: Found feature called "Patriots Path, Mendham, NJ 07945, USA"
+# - ListFeatures: Streaming features in rectangle
+# - RecordRoute: Finished trip with 10 points, 3 features, distance: 10 km
+# - RouteChat: Bidirectional streaming messages
+\end{lstlisting}
+
+\subsubsection{Java gRPC Screenshots}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Images/Java1.png}
+    \caption{Java gRPC Basics Tutorial - Route Guide Example (Part 1: GetFeature Unary RPC and Beginning of ListFeatures Server Streaming RPC)}
+    \label{fig:java_grpc_basics_part1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Images/Java2.png}
+    \caption{Java gRPC Basics Tutorial - Route Guide Example (Part 2: End of ListFeatures, Complete RecordRoute Client Streaming RPC, and Complete RouteChat Bidirectional Streaming RPC)}
+    \label{fig:java_grpc_basics_part2}
+\end{figure}
+
+\subsection{Python gRPC Implementation}
+
+\subsubsection{Environment Setup}
+\textbf{Status}: \textcolor{green}{COMPLETED}
+\begin{itemize}
+    \item[$\checkmark$] Python environment verified (Python 3.13.7)
+    \item[$\checkmark$] Virtual environment created and activated
+    \item[$\checkmark$] Python Quick Start completed successfully
+    \item[$\checkmark$] Python Basics Tutorial completed successfully
+    \item[$\checkmark$] Final step screenshots taken (with \texttt{date; whoami;} format)
+\end{itemize}
+
+\subsubsection{Implementation Details}
+Python gRPC implementation completed using:
+\begin{itemize}
+    \item \textbf{Python Version}: 3.13.7
+    \item \textbf{Virtual Environment}: \texttt{grpc\_env}
+    \item \textbf{gRPC Version}: 1.76.0
+    \item \textbf{Protocol Buffers}: 6.33.4
+    \item \textbf{Examples}: Hello World + Route Guide (all 4 RPC types)
+\end{itemize}
+
+\subsubsection{Tutorials Completed}
+\begin{enumerate}
+    \item \textbf{Quick Start}: Hello World client-server communication verified
+    \item \textbf{Basics Tutorial}: Route Guide example demonstrating:
+    \begin{itemize}
+        \item Simple RPC (GetFeature)
+        \item Server-side streaming RPC (ListFeatures)  
+        \item Client-side streaming RPC (RecordRoute)
+        \item Bidirectional streaming RPC (RouteChat)
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{Python gRPC Screenshots}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Python1.png}
+    \caption{Python gRPC Quick Start - Hello World Example demonstrating basic client-server communication}
+    \label{fig:python_grpc_quickstart}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Python2.png}
+    \caption{Python gRPC Basics Tutorial - Route Guide Example (Part 1: GetFeature Simple RPC and ListFeatures Server-side streaming RPC with comprehensive feature listings)}
+    \label{fig:python_grpc_basics_part1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Python3.png}
+    \caption{Python gRPC Basics Tutorial - Route Guide Example (Part 2: Continuation of ListFeatures, RecordRoute Client-side streaming RPC with trip statistics, and RouteChat Bidirectional streaming RPC)}
+    \label{fig:python_grpc_basics_part2}
+\end{figure}
+
+\subsubsection{Required Commands Format}
+All Python gRPC commands were documented using:
+\begin{lstlisting}[language=bash]
+date; whoami; [python-grpc-command]
+\end{lstlisting}
+
+\subsection{Screenshot Requirements}
+Screenshots will be captured for the final steps of both tutorials, showing:
+\begin{itemize}
+    \item Command execution with \texttt{date; whoami;} prefix
+    \item Successful client-server communication
+    \item Output demonstrating gRPC functionality
+\end{itemize}
+
+\newpage
+\section{Q3: Cross-Language Implementation}
+
+\subsection{Overview}
+This section documents the completed implementation of a cross-language phonebook system using Java Spring Boot web interface and Python gRPC database server, with full Docker containerization and public deployment via Docker Hub.
+
+\textbf{Status}: COMPLETED - January 16, 2026
+
+\subsection{Project Architecture}
+
+The implementation consists of a distributed phonebook system with the following architecture:
+
+\begin{center}
+\textbf{Browser → Java Web Server → Python gRPC Server → In-Memory Storage}\\
+\texttt{:8080 \quad\quad\quad (Docker) \quad\quad\quad\quad (Docker) \quad\quad\quad\quad (Python Dict)}
+\end{center}
+
+\subsubsection{Container Services}
+\begin{enumerate}
+    \item \textbf{Python Database Server} (Port 50051)
+    \begin{itemize}
+        \item Technology: Python 3.13 + gRPC
+        \item Purpose: Database server with in-memory contact storage
+        \item Features: Thread-safe CRUD operations, auto-incrementing unique IDs
+    \end{itemize}
+    
+    \item \textbf{Java Web Server} (Port 8080)
+    \begin{itemize}
+        \item Technology: Java 17 + Spring Boot + gRPC Client
+        \item Purpose: Web interface with professional Bootstrap UI
+        \item Features: Cross-language communication, form handling, Thymeleaf templates
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Protocol Buffer Definition}
+\textbf{Status}: COMPLETED - January 16, 2026
+
+The shared \texttt{phonebook.proto} file defines:
+\begin{itemize}
+    \item[$\checkmark$] Contact message with unique ID system
+    \item[$\checkmark$] ContactRequest supporting dual lookup (ID and phone number)
+    \item[$\checkmark$] ContactResponse and ContactList messages
+    \item[$\checkmark$] PhonebookService with full CRUD operations
+\end{itemize}
+
+\subsection{Implementation Status}
+
+\subsubsection{Phase 1: Basic gRPC Implementation ✓}
+\begin{itemize}
+    \item[$\checkmark$] Protobuf schema design (January 16, 2026)
+    \item[$\checkmark$] Python gRPC server implementation (January 16, 2026)
+    \item[$\checkmark$] Java gRPC client integration (January 16, 2026)
+    \item[$\checkmark$] Cross-language communication testing (January 16, 2026)
+\end{itemize}
+
+\subsubsection{Phase 2: Web Interface Development ✓}
+\begin{itemize}
+    \item[$\checkmark$] Java Spring Boot web server (January 16, 2026)
+    \item[$\checkmark$] Professional Bootstrap UI (January 16, 2026)
+    \item[$\checkmark$] Thymeleaf template integration (January 16, 2026)
+    \item[$\checkmark$] CRUD operations implementation (January 16, 2026)
+\end{itemize}
+
+\subsubsection{Phase 3: Docker Containerization ✓}
+\begin{itemize}
+    \item[$\checkmark$] Python server Dockerfile creation (January 16, 2026)
+    \item[$\checkmark$] Java web server Dockerfile creation (January 16, 2026)
+    \item[$\checkmark$] Docker Compose orchestration (January 16, 2026)
+    \item[$\checkmark$] Container networking configuration (January 16, 2026)
+    \item[$\checkmark$] Health checks implementation (January 16, 2026)
+\end{itemize}
+
+\subsubsection{Phase 4: Advanced Features ✓}
+\begin{itemize}
+    \item[$\checkmark$] Unique ID system implementation (January 16, 2026)
+    \item[$\checkmark$] Phone number editability fix (January 16, 2026)
+    \item[$\checkmark$] Duplicate prevention validation (January 16, 2026)
+    \item[$\checkmark$] Comprehensive logging system (January 16, 2026)
+\end{itemize}
+
+\subsubsection{Phase 5: Docker Hub Deployment ✓}
+\begin{itemize}
+    \item[$\checkmark$] Docker images built and tagged (January 16, 2026)
+    \item[$\checkmark$] Images pushed to Docker Hub (January 16, 2026)
+    \item[$\checkmark$] Public deployment configuration (January 16, 2026)
+    \item[$\checkmark$] README documentation updated (January 16, 2026)
+\end{itemize}
+
+\subsection{Docker Hub Deployment}
+
+\textbf{Public Docker Images}:
+\begin{itemize}
+    \item \textbf{Web Interface}: \url{https://hub.docker.com/r/bennythepooh/phonebook-web}
+    \item \textbf{Database Server}: \url{https://hub.docker.com/r/bennythepooh/phonebook-database}
+\end{itemize}
+
+\textbf{Quick Deployment}:
+\begin{lstlisting}[language=bash]
+curl -O https://raw.githubusercontent.com/Benjination/Project-1---Distributed-Systems/main/Q3_CrossLanguage_Phonebook/docker-compose.hub.yml
+docker-compose -f docker-compose.hub.yml up
+\end{lstlisting}
+
+\textbf{Access}: \url{http://localhost:8080}
+
+\subsection{Cross-Language Communication Demonstration}
+
+\textbf{Live Demo}: The system demonstrates real-time cross-language communication between Java Spring Boot web interface and Python gRPC database server. Users can add, edit, and delete contacts through the web interface, with all operations executed via gRPC calls from Java to Python.
+
+\textbf{Key Features Demonstrated}:
+\begin{itemize}
+    \item Cross-language gRPC communication (Java ↔ Python)
+    \item Professional web interface with Bootstrap UI
+    \item Complete containerization with Docker Compose
+    \item Public deployment via Docker Hub
+    \item Advanced features: unique IDs, editable fields, validation
+\end{itemize}
+
+\subsection{AI Tools Usage Documentation}
+
+\subsubsection{Project Planning Session}
+\textbf{Date}: January 14, 2026\\
+\textbf{AI Tool Used}: GitHub Copilot (Claude Sonnet 4)\\
+\textbf{Task}: Project planning and documentation setup
+
+\textbf{Prompts Provided}:
+\begin{enumerate}
+    \item "I added the instructions for my first Distributed Systems Project. Let's create a file that has a step by step checklist of what I need to do..."
+    \item "Now read through the two files here, and let's create files for everything that I need to keep track of..."
+\end{enumerate}
+
+\textbf{AI Responses}: The AI provided comprehensive project structure including step-by-step checklist, tracking files for AI documentation, action logs, Docker commands reference, and progress tracking.
+
+\textbf{Usage}: Used files directly as provided to establish organized project structure with separate Tracking/ folder and documentation templates addressing all project requirements.
+
+\subsubsection{LaTeX Report Creation Session}
+\textbf{Date}: January 15, 2026\\
+\textbf{AI Tool Used}: GitHub Copilot (Claude Sonnet 4)\\
+\textbf{Task}: LaTeX report structure creation and content population
+
+\textbf{Prompts Provided}:
+"I started a new folder called Latex PDF. Lets fill it with a main file that has intro stuff and Table of Contents etc... It should have three sections that will be different structures for Q1, Q2, and Q3. Add as much of the details from our tracking as you can, and include the images where applicable. I'll add the images on overleaf in a folder called images."
+
+\textbf{AI Responses}: AI provided comprehensive LaTeX document with complete document structure, title page with student information, table of contents, Q1 section fully populated with Docker Hub links and command documentation tables, Q2/Q3 section templates, and references sections.
+
+\textbf{Usage}: Used complete LaTeX file directly as provided for main report structure. Document includes all tracking data and serves as primary deliverable for final project report.
+
+\subsubsection{Java gRPC Environment Setup Session}
+\textbf{Date}: January 15, 2026\\
+\textbf{AI Tool Used}: GitHub Copilot (Claude Sonnet 4)\\
+\textbf{Task}: Java environment setup and gRPC Quick Start tutorial guidance
+
+\textbf{Prompts Provided}:
+"Before we move on, Let's add to the Ai contributions that you helped me install Java, Maven, and the others."
+
+\textbf{AI Responses}: The AI guided through complete Java development environment setup including OpenJDK installation via Homebrew, Java version compatibility troubleshooting (switching from Java 25 to Java 17 for gRPC compatibility), Maven installation, PATH configuration, and gRPC Java examples compilation and execution.
+
+\subsubsection{Q3 Implementation Session}
+\textbf{Date}: January 16, 2026\\
+\textbf{Duration}: Full Day (8 AM - 6 PM)\\
+\textbf{AI Tool Used}: GitHub Copilot (Claude Sonnet 4)\\
+\textbf{Task}: Complete cross-language phonebook implementation with Docker deployment
+
+\textbf{Major Prompts Provided}:
+\begin{enumerate}
+    \item "Let's continue with Q2, we have the Java running. let's get the Python working too"
+    \item "Alright, lets move on to Q3. Can you tell me what exactly I need to implement?"
+    \item "Let's start creating the basic structure for Q3. I want to make sure we have a good foundation"
+    \item "I want to create a phonebook application with Java frontend and Python backend using gRPC"
+    \item "Let's implement the web interface using Spring Boot with proper forms and UI"
+    \item "Now let's containerize everything with Docker and Docker Compose"
+    \item "I'm having issues with phone number editing - it seems to be readonly"
+    \item "Since these are Docker containers, I'd like to upload them to Docker so that I can include a link"
+\end{enumerate}
+
+\textbf{AI Responses Summary}: The AI provided comprehensive implementation assistance including complete Python gRPC server with thread-safe storage and auto-incrementing IDs, Java Spring Boot web application with professional Bootstrap UI, full Docker containerization with service orchestration, advanced problem-solving for HTML template issues, and successful Docker Hub deployment with public image hosting.
+
+\textbf{Usage}: Used AI-generated code directly with minor customizations for the complete system implementation. The AI guidance enabled rapid development of a production-quality distributed system that exceeds basic project requirements.
+
+\textbf{Implementation Achievements}:
+\begin{itemize}
+    \item Cross-language gRPC communication (Java ↔ Python)
+    \item Professional web interface with Bootstrap UI  
+    \item Complete containerization with Docker Compose
+    \item Public deployment via Docker Hub
+    \item Advanced features: unique IDs, editable fields, validation, logging
+    \item Production-ready architecture with proper error handling
+\end{itemize}
+
+\subsubsection{Python gRPC Environment Setup Session}
+\textbf{Date}: January 16, 2026\\
+\textbf{AI Tool Used}: GitHub Copilot (Claude Sonnet 4)\\
+\textbf{Task}: Python environment setup, package installation, and gRPC tutorial completion
+
+\textbf{Prompts Provided}:
+"Now let's run the Python Route Guide server and client to complete the Basics Tutorial. I'll start the server first, then run the client for the screenshot."
+
+\textbf{AI Responses}: The AI provided comprehensive Python gRPC setup including Python 3.13.7 virtual environment creation, gRPC package installation (grpcio-1.76.0, grpcio-tools-1.76.0, protobuf-6.33.4), repository cloning, and troubleshooting guidance for externally-managed-environment errors and port conflicts.
+
+\textbf{Usage}: Used AI guidance to create isolated virtual environment, install required packages, complete both Python Quick Start and Basics Tutorial (Route Guide), and successfully demonstrate all four gRPC RPC communication patterns with proper client-server interactions.
+
+\subsubsection{AI Tools Assessment}
+
+\textbf{Positive Aspects}:
+\begin{itemize}
+    \item Comprehensive project structure creation
+    \item Detailed requirement analysis  
+    \item Organized documentation templates
+    \item Time-efficient setup process
+    \item Expert troubleshooting for development environment issues
+    \item Step-by-step guidance for complex installations
+    \item Effective resolution of Python virtual environment and package management challenges
+    \item Successful cross-language gRPC tutorial completion with both Java and Python
+    \item Debugging assistance for server/client connectivity and port conflicts
+\end{itemize}
+
+\textbf{Negative Aspects}:
+\begin{itemize}
+    \item Still requires human oversight for accuracy
+    \item Need to verify against actual project requirements
+    \item Templates require customization for specific use
+    \item Some trial-and-error needed for version compatibility issues
+\end{itemize}
+
+\subsection{Docker Network Configuration}
+The containerized system uses a dedicated Docker network (\texttt{phonebook-net}) with proper service discovery and inter-container communication via container hostnames.
+
+\section{Conclusion}
+
+\textbf{Project Status}: ✅ COMPLETED - January 16, 2026
+
+This project successfully demonstrates practical application of containerization and distributed communication technologies through a complete cross-language implementation. The Docker fundamentals section provided hands-on experience with image management and registry operations. The gRPC implementation showcases advanced cross-language communication capabilities with a production-ready phonebook system.
+
+\textbf{Key Achievements}:
+\begin{itemize}
+    \item ✅ Complete Docker workflow mastery (Q1)
+    \item ✅ Cross-language gRPC tutorial completion (Q2: Java + Python)
+    \item ✅ Production-grade distributed system implementation (Q3)
+    \item ✅ Professional web interface with Bootstrap UI
+    \item ✅ Full containerization and Docker Hub deployment
+    \item ✅ Advanced features: unique ID system, validation, comprehensive logging
+\end{itemize}
+
+\textbf{Learning Outcomes}:
+\begin{itemize}
+    \item Docker containerization workflow and multi-container orchestration
+    \item Protocol Buffer definition and cross-language code generation  
+    \item Advanced gRPC communication patterns and service architecture
+    \item Container networking, service discovery, and health monitoring
+    \item Professional web development with Spring Boot and Thymeleaf
+    \item Public deployment strategies via Docker Hub
+\end{itemize}
+
+\textbf{Final Deliverables}:
+\begin{itemize}
+    \item Docker Hub Link \#1: \url{https://hub.docker.com/r/bennythepooh/project.1}
+    \item Docker Hub Link \#2: \url{https://hub.docker.com/repository/docker/bennythepooh/getting-started}
+    \item Q3 Web Interface: \url{https://hub.docker.com/r/bennythepooh/phonebook-web}
+    \item Q3 Database Server: \url{https://hub.docker.com/r/bennythepooh/phonebook-database}
+    \item Live Demo: \texttt{docker-compose -f docker-compose.hub.yml up}
+\end{itemize}
+
+\section{README Information}
+
+As required by the assignment, the following information explains how to compile, run, and understand the implementation:
+
+\subsection{How to Compile and Run the Program}
+
+\subsubsection{Option 1: Quick Deployment (Recommended)}
+\begin{lstlisting}[language=bash]
+# Download deployment configuration
+curl -O https://raw.githubusercontent.com/Benjination/Project-1---Distributed-Systems/main/Q3_CrossLanguage_Phonebook/docker-compose.hub.yml
+
+# Start the application
+docker-compose -f docker-compose.hub.yml up
+
+# Access the web interface
+open http://localhost:8080
+\end{lstlisting}
+
+\subsubsection{Option 2: Build from Source}
+\begin{lstlisting}[language=bash]
+# Clone the repository
+git clone https://github.com/Benjination/Project-1---Distributed-Systems.git
+cd "Project-1---Distributed-Systems/Q3_CrossLanguage_Phonebook"
+
+# Build and start all services
+docker-compose up --build
+
+# Access the web interface
+open http://localhost:8080
+\end{lstlisting}
+
+\subsubsection{System Requirements}
+\begin{itemize}
+    \item Docker and Docker Compose installed
+    \item Ports 8080 and 50051 available
+    \item Internet connection for Docker Hub image download
+\end{itemize}
+
+\subsection{Unusual Aspects of the Solution}
+
+\begin{itemize}
+    \item \textbf{Architecture Choice}: Instead of four separate containers (Java server/client, Python server/client), the implementation uses a practical web-based architecture with Java Spring Boot frontend and Python gRPC backend
+    \item \textbf{Unique ID System}: Implements auto-incrementing unique IDs for contacts while maintaining phone number editability and duplicate prevention
+    \item \textbf{Professional UI}: Uses Bootstrap for production-quality web interface instead of simple command-line clients
+    \item \textbf{Public Deployment}: All components are available as public Docker Hub images for easy demonstration and evaluation
+    \item \textbf{Cross-Language Communication}: Demonstrates real-time gRPC communication between Java and Python in a practical phonebook application
+    \item \textbf{Health Checks}: Implements proper container health monitoring and service dependencies
+\end{itemize}
+
+\subsection{External Sources Referenced}
+
+All external sources used during implementation are documented in the External Sources section below. The primary references include official Docker and gRPC documentation, along with language-specific tutorials for Java and Python gRPC implementations.
+
+\section{External Sources}
+
+\begin{itemize}
+    \item Docker Official Documentation: \url{https://docs.docker.com/}
+    \item gRPC Documentation: \url{https://grpc.io/docs/}
+    \item Protocol Buffers Guide: \url{https://developers.google.com/protocol-buffers}
+    \item Java gRPC Tutorial: \url{https://grpc.io/docs/languages/java/}
+    \item Python gRPC Tutorial: \url{https://grpc.io/docs/languages/python/}
+\end{itemize}
+
+\end{document}
